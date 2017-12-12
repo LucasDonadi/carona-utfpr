@@ -1,0 +1,41 @@
+CREATE DATABASE caronautf;
+
+USE caronautf;
+
+
+CREATE TABLE ponto(
+id INTEGER(5) AUTO_INCREMENT,
+nomePonto VARCHAR(25) NOT NULL,
+endereco VARCHAR(45) NOT NULL,
+referencia VARCHAR(15),
+PRIMARY KEY (id))
+
+CREATE TABLE usuario(
+id INTEGER(5),
+senha VARCHAR(15) NOT NULL,
+nome VARCHAR(45) NOT NULL,
+email VARCHAR(30),
+curso VARCHAR(45),
+veiculo VARCHAR(25),
+PRIMARY KEY (id))
+
+CREATE TABLE rota(
+id INTEGER(5) AUTO_INCREMENT,
+idCondutor INTEGER(5) NOT NULL,
+idOrigem INTEGER(5) NOT NULL,
+idDestino INTEGER(5) NOT NULL,
+dataHorario VARCHAR(20),
+nroVagas INTEGER(1),
+PRIMARY KEY (id),
+FOREIGN KEY (idOrigem) REFERENCES ponto(id),
+FOREIGN KEY (idDestino) REFERENCES ponto(id),
+FOREIGN KEY (idCondutor) REFERENCES usuario(id))
+
+CREATE TABLE carona(
+id INTEGER(5) AUTO_INCREMENT,
+idRota INTEGER(5),
+idUsuario INTEGER(5),
+status INTEGER(1), 
+PRIMARY KEY(id),
+FOREIGN KEY (idRota) REFERENCES rota(id),
+FOREIGN KEY (idUsuario) REFERENCES usuario(id))
